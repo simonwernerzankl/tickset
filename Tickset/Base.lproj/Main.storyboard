@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" INVALID TICKET " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cJr-ux-162">
+                                <rect key="frame" x="0.0" y="547" width="375" height="120"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="rXf-Aj-i6A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="j32-bj-Mxm">
+                                <rect key="frame" x="169" y="588.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO SCAN NEXT TICKET" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTm-oY-tmF">
+                                <rect key="frame" x="0.0" y="427" width="375" height="120"/>
+                                <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="l0j-Xa-btw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cJr-ux-162" secondAttribute="trailing" id="3vm-cT-PxE"/>
+                            <constraint firstItem="cJr-ux-162" firstAttribute="top" secondItem="DTm-oY-tmF" secondAttribute="bottom" id="COt-3m-ms8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cJr-ux-162" secondAttribute="bottom" id="Ifu-X4-bRo"/>
+                            <constraint firstItem="j32-bj-Mxm" firstAttribute="centerX" secondItem="cJr-ux-162" secondAttribute="centerX" id="Saj-z5-4b8"/>
+                            <constraint firstAttribute="trailing" secondItem="DTm-oY-tmF" secondAttribute="trailing" id="T3N-DF-GFm"/>
+                            <constraint firstItem="DTm-oY-tmF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Xzu-g5-409"/>
+                            <constraint firstItem="j32-bj-Mxm" firstAttribute="centerY" secondItem="cJr-ux-162" secondAttribute="centerY" id="b73-wZ-OSL"/>
+                            <constraint firstItem="cJr-ux-162" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bRK-xA-4Bp"/>
+                            <constraint firstItem="DTm-oY-tmF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fdv-5d-N3O"/>
+                            <constraint firstItem="cJr-ux-162" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pvK-pt-ZyI"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="1C5-vt-fEj" appends="YES" id="XMn-Ip-3XD"/>
+                        </connections>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="continueLabel" destination="DTm-oY-tmF" id="SBJ-IK-85n"/>
+                        <outlet property="loadingWheel" destination="j32-bj-Mxm" id="yAI-qF-Hp9"/>
+                        <outlet property="messageLabel" destination="cJr-ux-162" id="M0j-UX-0mQ"/>
+                        <outlet property="tapGesture" destination="1C5-vt-fEj" id="cmV-zn-0Nb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="1C5-vt-fEj">
+                    <connections>
+                        <action selector="tapGestureAction:" destination="BYZ-38-t0r" id="nVe-UO-kw4"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+    </scenes>
+</document>
