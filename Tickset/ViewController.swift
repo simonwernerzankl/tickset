@@ -195,7 +195,7 @@ extension ViewController {
     }
     //MARK: Tap to scan label funtions
     func ui_message_init () {
-        self.continueLabel.text = "TAP TO SCAN\nNEXT TICKET"
+        self.continueLabel.text = "TAP TO SCAN NEXT QR CODE"
         self.view.bringSubview(toFront: self.continueLabel)
         self.ui_message_hide()
     }
@@ -227,7 +227,7 @@ extension ViewController {
     
     func ui_status_invalid () {
         self.ui_loadingWheel_stop()
-        self.messageLabel.text = "INVALID\nTICKET"
+        self.messageLabel.text = "INVALID\nQR CODE"
         self.messageLabel.backgroundColor = Colors.red()
         self.messageLabel.textColor = Colors.white()
         self.isFinalStatus = true
@@ -251,7 +251,7 @@ extension ViewController {
     
     func ui_status_scan () {
         self.ui_loadingWheel_stop()
-        self.messageLabel.text = "SCAN\nTICKET"
+        self.messageLabel.text = "SCAN QR CODE ON TICKET"
         self.messageLabel.backgroundColor = Colors.gray()
         self.messageLabel.textColor = Colors.white()
         self.isFinalStatus = false
