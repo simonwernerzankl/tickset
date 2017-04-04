@@ -36,7 +36,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO SCAN NEXT TICKET" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTm-oY-tmF">
                                 <rect key="frame" x="0.0" y="427" width="375" height="120"/>
-                                <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="l0j-Xa-btw"/>
                                 </constraints>
@@ -49,8 +49,8 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="j32-bj-Mxm">
                                 <rect key="frame" x="169.5" y="588" width="37" height="37"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUn-Ac-SJV">
-                                <rect key="frame" x="333" y="20" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUn-Ac-SJV" userLabel="Info Button">
+                                <rect key="frame" x="337" y="36" width="22" height="22"/>
                                 <connections>
                                     <segue destination="KOm-9u-xrA" kind="presentation" id="QMc-Mg-Mjf"/>
                                 </connections>
@@ -62,10 +62,10 @@
                             <constraint firstAttribute="trailing" secondItem="cJr-ux-162" secondAttribute="trailing" id="3vm-cT-PxE"/>
                             <constraint firstItem="cJr-ux-162" firstAttribute="top" secondItem="DTm-oY-tmF" secondAttribute="bottom" id="COt-3m-ms8"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cJr-ux-162" secondAttribute="bottom" id="Ifu-X4-bRo"/>
+                            <constraint firstAttribute="trailing" secondItem="kUn-Ac-SJV" secondAttribute="trailing" constant="16" id="K0z-Gw-VUr"/>
                             <constraint firstItem="etz-he-Nh5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="OMe-4b-HfI"/>
                             <constraint firstItem="j32-bj-Mxm" firstAttribute="centerX" secondItem="cJr-ux-162" secondAttribute="centerX" id="Saj-z5-4b8"/>
                             <constraint firstAttribute="bottom" secondItem="etz-he-Nh5" secondAttribute="bottom" id="Sh5-2I-9Ba"/>
-                            <constraint firstAttribute="trailing" secondItem="kUn-Ac-SJV" secondAttribute="trailing" constant="20" id="Su9-Dx-rmD"/>
                             <constraint firstAttribute="trailing" secondItem="DTm-oY-tmF" secondAttribute="trailing" id="T3N-DF-GFm"/>
                             <constraint firstItem="etz-he-Nh5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="X0p-5V-jga"/>
                             <constraint firstItem="DTm-oY-tmF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Xzu-g5-409"/>
@@ -73,15 +73,14 @@
                             <constraint firstAttribute="trailing" secondItem="etz-he-Nh5" secondAttribute="trailing" id="bBB-mp-M0J"/>
                             <constraint firstItem="cJr-ux-162" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bRK-xA-4Bp"/>
                             <constraint firstItem="DTm-oY-tmF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fdv-5d-N3O"/>
-                            <constraint firstItem="kUn-Ac-SJV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="gfM-LR-6W2"/>
                             <constraint firstItem="cJr-ux-162" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pvK-pt-ZyI"/>
+                            <constraint firstItem="kUn-Ac-SJV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="zn4-jJ-3BX"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="1C5-vt-fEj" appends="YES" id="XMn-Ip-3XD"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -161,4 +160,5 @@
             <point key="canvasLocation" x="933.60000000000002" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.30588235294117649" green="0.6705882352941176" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
 </document>

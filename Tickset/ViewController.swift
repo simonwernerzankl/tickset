@@ -51,7 +51,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupCamera()
         setupStatus()
         setupLoadingWheel()
