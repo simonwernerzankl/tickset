@@ -253,8 +253,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "VALID\nTICKET"
-        messageLabel.backgroundColor = Colors.green()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .limeGreen
+        messageLabel.textColor = .white
         isFinalStatus = true
     }
     
@@ -262,8 +262,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "INVALID\nQR CODE"
-        messageLabel.backgroundColor = Colors.red()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .vividRed
+        messageLabel.textColor = .white
         isFinalStatus = true
     }
     
@@ -271,8 +271,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "USED\nTICKET"
-        messageLabel.backgroundColor = Colors.orange()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .pureOrange
+        messageLabel.textColor = .white
         isFinalStatus = true
     }
     
@@ -280,8 +280,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "ERROR\nTRY AGAIN"
-        messageLabel.backgroundColor = Colors.orange()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .pureOrange
+        messageLabel.textColor = .white
         isFinalStatus = true
     }
     
@@ -289,8 +289,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "SCAN QR CODE ON TICKET"
-        messageLabel.backgroundColor = Colors.gray()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .gray
+        messageLabel.textColor = .white
         isFinalStatus = false
     }
     
@@ -298,8 +298,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         startLoadingWheel()
         messageLabel.text = ""
-        messageLabel.backgroundColor = Colors.gray()
-        messageLabel.textColor = Colors.white()
+        messageLabel.backgroundColor = .gray
+        messageLabel.textColor = .white
         isFinalStatus = false
     }
     
@@ -343,7 +343,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
         
         let qrFrameView = UIView()
-        qrFrameView.layer.borderColor = Colors.ticksetGreen().cgColor
+        qrFrameView.layer.borderColor = UIColor.green.cgColor
         qrFrameView.layer.borderWidth = 2
         qrFrameView.layer.cornerRadius = 10
         view.addSubview(qrFrameView)
