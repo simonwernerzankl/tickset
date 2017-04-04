@@ -30,6 +30,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
+    @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var continueLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var loadingWheel: UIActivityIndicatorView!
@@ -182,7 +183,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
             videoPreviewLayer?.frame = view.layer.bounds
-            view.layer.addSublayer(videoPreviewLayer!)
+            cameraContainerView.layer.addSublayer(videoPreviewLayer!)
             
             // Start video capture.
             startCapture()
