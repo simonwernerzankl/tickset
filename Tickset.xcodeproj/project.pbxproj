@@ -16,6 +16,7 @@
 		1A4CE09F1E5D7EBA0013E771 /* TicksetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE09E1E5D7EBA0013E771 /* TicksetTests.swift */; };
 		1A4CE0AA1E5D7EBA0013E771 /* TicksetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE0A91E5D7EBA0013E771 /* TicksetUITests.swift */; };
 		1A4CE0B81E5F1C7A0013E771 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE0B71E5F1C7A0013E771 /* Colors.swift */; };
+		C89907BB1E93A4B800E7271C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89907BA1E93A4B800E7271C /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		1A4CE0A91E5D7EBA0013E771 /* TicksetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicksetUITests.swift; sourceTree = "<group>"; };
 		1A4CE0AB1E5D7EBA0013E771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A4CE0B71E5F1C7A0013E771 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C89907BA1E93A4B800E7271C /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				1A4CE0891E5D7EB90013E771 /* AppDelegate.swift */,
 				1A4CE08B1E5D7EB90013E771 /* ViewController.swift */,
+				C89907BA1E93A4B800E7271C /* InfoViewController.swift */,
 				1A4CE08D1E5D7EB90013E771 /* Main.storyboard */,
 				1A4CE0901E5D7EB90013E771 /* Assets.xcassets */,
 				1A4CE0921E5D7EB90013E771 /* LaunchScreen.storyboard */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A4CE08C1E5D7EB90013E771 /* ViewController.swift in Sources */,
+				C89907BB1E93A4B800E7271C /* InfoViewController.swift in Sources */,
 				1A204F7E1E6450EA00722D54 /* MiddleWare.swift in Sources */,
 				1A4CE0B81E5F1C7A0013E771 /* Colors.swift in Sources */,
 				1A4CE08A1E5D7EB90013E771 /* AppDelegate.swift in Sources */,
