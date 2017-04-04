@@ -89,12 +89,16 @@ extension ViewController {
             let url = URL(string: metadata)!
             
             MiddleWare.get_status(url: url, completion: { (status, error) in
+                
                 switch status {
                 case 200 :
                     //keep checking
                     MiddleWare.get_cookie(url: url, completion: { (cookie, error) in
+                        
                         if error == nil && cookie != nil {
+                            
                             MiddleWare.post_ticket(url: url, cookie: cookie!, completion: { (error) in
+                                
                                 if error == nil {
                                     DispatchQueue.main.async {
                                         print(">> TICKET POSTED!")
@@ -102,36 +106,44 @@ extension ViewController {
                                     }
                                 } else {
                                     DispatchQueue.main.async {
-                                        print(">> Error POST the ticket: {\(error)}\nTry again...")
+                                        
+                                        if let error = error {
+                                            print(">> Error POST the ticket: {\(error)}\nTry again...")
+                                        }
                                         self.ui_status_error()
                                     }
                                 }
                             })
+                            
                         } else {
+                            
                             DispatchQueue.main.async {
-                                print(">> Error getting the Cookie: \n{\(cookie)}\n{\(error)}\nTry again...")
+                                
+                                if let error = error {
+                                    print(">> Error getting the Cookie: \n{\(cookie ?? "")}\n{\(error)}\nTry again...")
+                                }
                                 self.ui_status_error()
                             }
                         }
                     })
-                    break
+                    
                 case 202:
                     //ticket used
                     DispatchQueue.main.async {
                         print(">> Response status {\(status)}. Ticket has been used.")
                         self.ui_status_used()
                     }
-                    break
+                    
                 default:
                     DispatchQueue.main.async {
                         print(">> Response status {\(status)} is not 200.")
                         self.ui_status_invalid()
                     }
-                    break
                 }
             })
             
         } else {
+            
             print(">> URL {\(metadata)} is NOT valid")
             self.ui_status_invalid()
         }

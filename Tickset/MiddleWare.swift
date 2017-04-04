@@ -38,7 +38,7 @@ class MiddleWare {
                 final_status = httpResponse.statusCode
                 
                 if final_status == 200 {
-                    let urlContent = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as! String
+                    let urlContent = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)! as String
                     if !urlContent.contains("<form method=\"POST\">") {
                         final_status = 202
                     }
