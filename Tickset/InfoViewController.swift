@@ -9,12 +9,16 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    // MARK: - Actions
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)

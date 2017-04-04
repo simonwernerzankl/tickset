@@ -6,88 +6,113 @@
 //  Copyright © 2017 Carlos Martin. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class MiddleWare {
-    static func isValidURL (url_string: String) -> Bool {
-        var successful: Bool
-        print(url_string)
-        if let url = NSURL(string: url_string) {
+    
+    // MARK: - Helpers
+    
+    static func isValidURL(urlString: String) -> Bool {
+        
+        print(urlString)
+        
+        var successful = false
+        if let url = NSURL(string: urlString) {
+            
             successful = UIApplication.shared.canOpenURL(url as URL)
-            if successful && url_string.contains("tickset.com/consume_ticket/") {
+            if successful && urlString.contains("tickset.com/consume_ticket/") {
                 successful = true
             } else {
                 successful = false
             }
+            
         } else {
             successful = false
         }
         return successful
     }
     
-    static func get_status (url: URL, completion: @escaping (_ status: Int, _ error: Error?) -> Void) {
-        var final_status: Int = -1001
-        var final_error: Error? = nil
+    // MARK: - Status
+    
+    static func getStatus(url: URL, completion: @escaping (_ status: Int, _ error: Error?) -> Void) {
         
-        var get_request = URLRequest(url: url)
-        get_request.httpMethod = "GET"
-        get_request.httpShouldHandleCookies = true
-        let get_task = URLSession.shared.dataTask(with: get_request) { (data, response, error) in
+        var finalStatus: Int = -1001
+        var finalError: Error? = nil
+        
+        var getRequest = URLRequest(url: url)
+        getRequest.httpMethod = "GET"
+        getRequest.httpShouldHandleCookies = true
+        
+        let getTask = URLSession.shared.dataTask(with: getRequest) { (data, response, error) in
+            
             if error == nil, let httpResponse = response as? HTTPURLResponse {
-                final_status = httpResponse.statusCode
                 
-                if final_status == 200 {
-                    let urlContent = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as! String
+                finalStatus = httpResponse.statusCode
+                
+                if finalStatus == 200 {
+                    
+                    let urlContent = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)! as String
                     if !urlContent.contains("<form method=\"POST\">") {
-                        final_status = 202
+                        finalStatus = 202
                     }
                 }
+                
             } else {
-                final_error = error
+                finalError = error
             }
-            completion(final_status, final_error)
+            completion(finalStatus, finalError)
         }
-        get_task.resume()
+        getTask.resume()
     }
     
-    static func get_cookie (url: URL, completion: @escaping (_ cookie: String?, _ error: Error?) -> Void) {
-        var final_error: Error? = nil
-        var final_cookie: String? = nil
+    // MARK: - Cookies
+    
+    static func getCookie(url: URL, completion: @escaping (_ cookie: String?, _ error: Error?) -> Void) {
         
-        var get_request = URLRequest(url: url)
-        get_request.httpMethod = "GET"
-        get_request.httpShouldHandleCookies = true
-        let get_task = URLSession.shared.dataTask(with: get_request) { (data, response, error) in
+        var finalError: Error? = nil
+        var finalCookie: String? = nil
+        
+        var getRequest = URLRequest(url: url)
+        getRequest.httpMethod = "GET"
+        getRequest.httpShouldHandleCookies = true
+        let getTask = URLSession.shared.dataTask(with: getRequest) { (_, response, error) in
+            
             if error == nil, let httpResponse = response as? HTTPURLResponse {
-                let raw_cookie = httpResponse.allHeaderFields["Set-Cookie"] as? String
-                final_cookie = self.prepare_cookie(raw_cookie: raw_cookie)
+                
+                let rawCookie = httpResponse.allHeaderFields["Set-Cookie"] as? String
+                finalCookie = self.prepareCookie(rawCookie: rawCookie)
+                
             } else {
-                final_error = error
+                finalError = error
             }
-            completion(final_cookie, final_error)
+            completion(finalCookie, finalError)
         }
-        get_task.resume()
+        getTask.resume()
     }
     
-    static func post_ticket (url: URL, cookie: String, completion: @escaping (_ error: Error?) -> Void) {
-        var post_request = URLRequest(url: url)
-        post_request.httpMethod = "POST"
-        post_request.httpShouldHandleCookies = true
-        post_request.addValue(url.absoluteString, forHTTPHeaderField: "Referer")
-        post_request.httpBody = "csrfmiddlewaretoken=\(cookie)".data(using: .utf8)
+    static func prepareCookie(rawCookie: String?) -> String? {
         
-        let post_task = URLSession.shared.dataTask(with: post_request) { data, response, error in
+        var finalCookie: String?
+        if let rawCookie = rawCookie {
+            finalCookie = rawCookie.components(separatedBy: "; ")[0].components(separatedBy: "=")[1]
+        }
+        return finalCookie
+    }
+    
+    // MARK: - Tickets
+    
+    static func postTicket(url: URL, cookie: String, completion: @escaping (_ error: Error?) -> Void) {
+        
+        var postRequest = URLRequest(url: url)
+        postRequest.httpMethod = "POST"
+        postRequest.httpShouldHandleCookies = true
+        postRequest.addValue(url.absoluteString, forHTTPHeaderField: "Referer")
+        postRequest.httpBody = "csrfmiddlewaretoken=\(cookie)".data(using: .utf8)
+        
+        let postTask = URLSession.shared.dataTask(with: postRequest) { _, _, error in
             completion(error)
         }
-        post_task.resume()
+        postTask.resume()
     }
     
-    static func prepare_cookie (raw_cookie: String?) -> String? {
-        var f_cookie: String? = nil
-        if let _r = raw_cookie {
-            f_cookie = _r.components(separatedBy: "; ")[0].components(separatedBy: "=")[1]
-        }
-        return f_cookie
-    }
 }
