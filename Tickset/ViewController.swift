@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-
+    
+    // MARK: - Properties
+    
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrFrameView: UIView?
@@ -19,11 +21,11 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var isFinalStatus: Bool = false {
         didSet {
             if isFinalStatus {
-                self.ui_message_show()
-                self.tap_recognizer_enable()
+                showMessage()
+                enableTapRecognizer()
             } else {
-                self.ui_message_hide()
-                self.tap_recognizer_disable()
+                hideMessage()
+                disableTapRecognizer()
             }
         }
     }
@@ -34,83 +36,87 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     
     @IBAction func tapGestureAction(_ sender: Any) {
+        
         if isStoped && isFinalStatus {
+            
             isStoped = false
-            self.ui_status_scan()
-            self.ui_QRFrame_hide()
-            self.startCapture()
+            showScanStatus()
+            hideQRFrame()
+            startCapture()
         }
     }
+    
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
-        self.initCamera()
-        self.ui_status_init()
-        self.ui_loadingWheel_init()
-        self.ui_QRFrame_init()
-        self.ui_message_init()
+        setupCamera()
+        setupStatus()
+        setupLoadingWheel()
+        setupQRFrame()
+        setupMessage()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
+    // MARK: - QR and Camera Logic
+    
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+        
         if metadataObjects == nil || metadataObjects.count == 0 {
-            self.ui_QRFrame_hide()
+            hideQRFrame()
         } else {
-
+            
             let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
             
             if metadataObj.type == AVMetadataObjectTypeQRCode {
-                self.isStoped = true
-                self.stopCapture()
+                
+                isStoped = true
+                stopCapture()
                 
                 let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
                 
-                self.ui_QRFrame_add(bounds: barCodeObject.bounds)
-
-                self.validationQR(metadata: metadataObj.stringValue)
+                addQRFrame(to: barCodeObject.bounds)
+                
+                validationQR(metadata: metadataObj.stringValue)
             }
         }
     }
-}
-
-extension ViewController {
     
     func validationQR (metadata: String) {
-        self.ui_status_checking()
         
-        if MiddleWare.isValidURL(url_string: metadata) {
-            print(">> URL {\(metadata)} is valid")
-            let url = URL(string: metadata)!
+        showCheckingStatus()
+        
+        if MiddleWare.isValidURL(urlString: metadata) {
             
-            MiddleWare.get_status(url: url, completion: { (status, error) in
+            print(">> URL {\(metadata)} is valid")
+            
+            let url = URL(string: metadata)!
+            MiddleWare.getStatus(url: url, completion: { (status, error) in
                 
                 switch status {
                 case 200 :
-                    //keep checking
-                    MiddleWare.get_cookie(url: url, completion: { (cookie, error) in
+                    // Keep checking
+                    MiddleWare.getCookie(url: url, completion: { (cookie, error) in
                         
                         if error == nil && cookie != nil {
                             
-                            MiddleWare.post_ticket(url: url, cookie: cookie!, completion: { (error) in
+                            MiddleWare.postTicket(url: url, cookie: cookie!, completion: { (error) in
                                 
                                 if error == nil {
+                                    
                                     DispatchQueue.main.async {
                                         print(">> TICKET POSTED!")
-                                        self.ui_status_valid()
+                                        self.showValidStatus()
                                     }
+                                    
                                 } else {
+                                    
                                     DispatchQueue.main.async {
                                         
                                         if let error = error {
                                             print(">> Error POST the ticket: {\(error)}\nTry again...")
                                         }
-                                        self.ui_status_error()
+                                        self.showErrorStatus()
                                     }
                                 }
                             })
@@ -122,22 +128,22 @@ extension ViewController {
                                 if let error = error {
                                     print(">> Error getting the Cookie: \n{\(cookie ?? "")}\n{\(error)}\nTry again...")
                                 }
-                                self.ui_status_error()
+                                self.showErrorStatus()
                             }
                         }
                     })
                     
                 case 202:
-                    //ticket used
+                    // Ticket used
                     DispatchQueue.main.async {
                         print(">> Response status {\(status)}. Ticket has been used.")
-                        self.ui_status_used()
+                        self.showUsedStatus()
                     }
                     
                 default:
                     DispatchQueue.main.async {
                         print(">> Response status {\(status)} is not 200.")
-                        self.ui_status_invalid()
+                        self.showInvalidStatus()
                     }
                 }
             })
@@ -145,25 +151,28 @@ extension ViewController {
         } else {
             
             print(">> URL {\(metadata)} is NOT valid")
-            self.ui_status_invalid()
+            showInvalidStatus()
         }
     }
     
-    // MARK: - - Video Capture
-    func initCamera () {
+    // MARK: - Video Capture
+    
+    func setupCamera() {
+        
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
         // as the media type parameter.
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let captureInput: AVCaptureInput
+        
         do {
             try captureInput = AVCaptureDeviceInput(device: captureDevice)
             
-            self.captureSession = AVCaptureSession()
-            self.captureSession?.addInput(captureInput as AVCaptureInput)
+            captureSession = AVCaptureSession()
+            captureSession?.addInput(captureInput as AVCaptureInput)
             
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
-            self.captureSession?.addOutput(captureMetadataOutput)
+            captureSession?.addOutput(captureMetadataOutput)
             
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
@@ -176,149 +185,177 @@ extension ViewController {
             view.layer.addSublayer(videoPreviewLayer!)
             
             // Start video capture.
-            self.startCapture()
+            startCapture()
+            
         } catch {
             print("Error: AVCaptureDeviceInput")
         }
     }
     
     func startCapture (withDelay: Bool=false) {
-        self.captureSession?.startRunning()
+        captureSession?.startRunning()
     }
     
-    func stopCapture () {
-        self.captureSession?.stopRunning()
+    func stopCapture() {
+        captureSession?.stopRunning()
     }
-}
+    
+    // MARK: - Graphical Helpers
 
-// MARK: - - Graphical Helpers
-
-extension ViewController {
     // MARK: Tap Gesture Recognizer functions
-    func tap_recognizer_enable () {
-        if !self.tapGesture.isEnabled {
-            self.tapGesture.isEnabled = true
+    
+    func enableTapRecognizer() {
+        
+        if tapGesture.isEnabled == false {
+            tapGesture.isEnabled = true
         }
     }
     
-    func tap_recognizer_disable () {
-        if self.tapGesture.isEnabled {
-            self.tapGesture.isEnabled = false
+    func disableTapRecognizer() {
+        
+        if tapGesture.isEnabled {
+            tapGesture.isEnabled = false
         }
     }
+    
     // MARK: Tap to scan label funtions
-    func ui_message_init () {
-        self.continueLabel.text = "TAP TO SCAN NEXT QR CODE"
-        self.view.bringSubview(toFront: self.continueLabel)
-        self.ui_message_hide()
+    
+    func setupMessage() {
+        
+        continueLabel.text = "TAP TO SCAN NEXT QR CODE"
+        view.bringSubview(toFront: continueLabel)
+        hideMessage()
     }
     
-    func ui_message_show () {
-        if self.continueLabel.isHidden {
-            self.continueLabel.isHidden = false
+    func showMessage() {
+        
+        if continueLabel.isHidden {
+            continueLabel.isHidden = false
         }
     }
     
-    func ui_message_hide () {
-        if !self.continueLabel.isHidden {
-            self.continueLabel.isHidden = true
+    func hideMessage() {
+        
+        if continueLabel.isHidden == false {
+            continueLabel.isHidden = true
         }
     }
+    
     // MARK: Label status funtions
-    func ui_status_init () {
-        self.view.bringSubview(toFront: self.messageLabel)
-        self.ui_status_scan()
+    
+    func setupStatus() {
+        
+        view.bringSubview(toFront: messageLabel)
+        showScanStatus()
     }
     
-    func ui_status_valid () {
-        self.ui_loadingWheel_stop()
-        self.messageLabel.text = "VALID\nTICKET"
-        self.messageLabel.backgroundColor = Colors.green()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = true
+    func showValidStatus() {
+        
+        stopLoadingWheel()
+        messageLabel.text = "VALID\nTICKET"
+        messageLabel.backgroundColor = Colors.green()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = true
     }
     
-    func ui_status_invalid () {
-        self.ui_loadingWheel_stop()
-        self.messageLabel.text = "INVALID\nQR CODE"
-        self.messageLabel.backgroundColor = Colors.red()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = true
+    func showInvalidStatus() {
+        
+        stopLoadingWheel()
+        messageLabel.text = "INVALID\nQR CODE"
+        messageLabel.backgroundColor = Colors.red()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = true
     }
     
-    func ui_status_used () {
-        self.ui_loadingWheel_stop()
-        self.messageLabel.text = "USED\nTICKET"
-        self.messageLabel.backgroundColor = Colors.orange()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = true
+    func showUsedStatus() {
+        
+        stopLoadingWheel()
+        messageLabel.text = "USED\nTICKET"
+        messageLabel.backgroundColor = Colors.orange()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = true
     }
     
-    func ui_status_error () {
-        self.ui_loadingWheel_stop()
-        self.messageLabel.text = "ERROR\nTRY AGAIN"
-        self.messageLabel.backgroundColor = Colors.orange()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = true
+    func showErrorStatus() {
+        
+        stopLoadingWheel()
+        messageLabel.text = "ERROR\nTRY AGAIN"
+        messageLabel.backgroundColor = Colors.orange()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = true
     }
     
-    func ui_status_scan () {
-        self.ui_loadingWheel_stop()
-        self.messageLabel.text = "SCAN QR CODE ON TICKET"
-        self.messageLabel.backgroundColor = Colors.gray()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = false
+    func showScanStatus() {
+        
+        stopLoadingWheel()
+        messageLabel.text = "SCAN QR CODE ON TICKET"
+        messageLabel.backgroundColor = Colors.gray()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = false
     }
     
-    func ui_status_checking () {
-        self.ui_loadingWheel_start()
-        self.messageLabel.text = ""
-        self.messageLabel.backgroundColor = Colors.gray()
-        self.messageLabel.textColor = Colors.white()
-        self.isFinalStatus = false
+    func showCheckingStatus() {
+        
+        startLoadingWheel()
+        messageLabel.text = ""
+        messageLabel.backgroundColor = Colors.gray()
+        messageLabel.textColor = Colors.white()
+        isFinalStatus = false
     }
     
     // MARK: Loading Weel functions
-    func ui_loadingWheel_init () {
-        self.view.bringSubview(toFront: self.loadingWheel)
-        self.loadingWheel.isHidden = true
+    
+    func setupLoadingWheel() {
+        
+        view.bringSubview(toFront: loadingWheel)
+        loadingWheel.isHidden = true
     }
     
-    func ui_loadingWheel_start () {
-        if self.loadingWheel.isHidden {
-            self.loadingWheel.isHidden = false
+    func startLoadingWheel() {
+        
+        if loadingWheel.isHidden {
+            loadingWheel.isHidden = false
         }
-        if !self.loadingWheel.isAnimating {
-            self.loadingWheel.startAnimating()
+        
+        if loadingWheel.isAnimating == false {
+            loadingWheel.startAnimating()
         }
         
     }
     
-    func ui_loadingWheel_stop () {
-        if !self.loadingWheel.isHidden {
-            self.loadingWheel.isHidden = true
+    func stopLoadingWheel() {
+        
+        if loadingWheel.isHidden == false {
+            loadingWheel.isHidden = true
             
         }
-        if self.loadingWheel.isAnimating {
-            self.loadingWheel.stopAnimating()
+        if loadingWheel.isAnimating {
+            loadingWheel.stopAnimating()
         }
     }
     
     // MARK: QR-code Frame functions
-    func ui_QRFrame_init () {
-        self.qrFrameView = UIView()
-        self.qrFrameView!.layer.borderColor = Colors.ticksetGreen().cgColor
-        self.qrFrameView!.layer.borderWidth = 2
-        self.qrFrameView!.layer.cornerRadius = 10
-        self.view.addSubview(qrFrameView!)
-        self.view.bringSubview(toFront: self.qrFrameView!)
-
+    
+    func setupQRFrame() {
+        
+        guard self.qrFrameView == nil else {
+            return
+        }
+        
+        let qrFrameView = UIView()
+        qrFrameView.layer.borderColor = Colors.ticksetGreen().cgColor
+        qrFrameView.layer.borderWidth = 2
+        qrFrameView.layer.cornerRadius = 10
+        view.addSubview(qrFrameView)
+        view.bringSubview(toFront: qrFrameView)
+        self.qrFrameView = qrFrameView
     }
-    func ui_QRFrame_add (bounds: CGRect) {
+    
+    func addQRFrame(to bounds: CGRect) {
         qrFrameView?.frame = bounds
     }
     
-    func ui_QRFrame_hide () {
+    func hideQRFrame() {
         qrFrameView?.frame = CGRect.zero
     }
     
