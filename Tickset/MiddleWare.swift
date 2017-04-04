@@ -58,7 +58,7 @@ class MiddleWare {
         var get_request = URLRequest(url: url)
         get_request.httpMethod = "GET"
         get_request.httpShouldHandleCookies = true
-        let get_task = URLSession.shared.dataTask(with: get_request) { (data, response, error) in
+        let get_task = URLSession.shared.dataTask(with: get_request) { (_, response, error) in
             if error == nil, let httpResponse = response as? HTTPURLResponse {
                 let raw_cookie = httpResponse.allHeaderFields["Set-Cookie"] as? String
                 final_cookie = self.prepare_cookie(raw_cookie: raw_cookie)
@@ -77,7 +77,7 @@ class MiddleWare {
         post_request.addValue(url.absoluteString, forHTTPHeaderField: "Referer")
         post_request.httpBody = "csrfmiddlewaretoken=\(cookie)".data(using: .utf8)
         
-        let post_task = URLSession.shared.dataTask(with: post_request) { data, response, error in
+        let post_task = URLSession.shared.dataTask(with: post_request) { _, _, error in
             completion(error)
         }
         post_task.resume()

@@ -11,12 +11,12 @@ import AVFoundation
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    var captureSession:     AVCaptureSession?
-    var videoPreviewLayer:  AVCaptureVideoPreviewLayer?
-    var qrFrameView:        UIView?
-    var currentMetadata:    String = ""
-    var isStoped:           Bool = false
-    var isFinalStatus:      Bool = false {
+    var captureSession: AVCaptureSession?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var qrFrameView: UIView?
+    var currentMetadata: String = ""
+    var isStoped: Bool = false
+    var isFinalStatus: Bool = false {
         didSet {
             if isFinalStatus {
                 self.ui_message_show()
@@ -137,7 +137,7 @@ extension ViewController {
         }
     }
     
-    //MARK:- Video Capture functions
+    // MARK: - - Video Capture
     func initCamera () {
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
         // as the media type parameter.
@@ -179,9 +179,10 @@ extension ViewController {
     }
 }
 
-//MARK:- GRAPHICAL HELPERS FUNTIONS
+// MARK: - - Graphical Helpers
+
 extension ViewController {
-    //MARK: Tap Gesture Recognizer functions
+    // MARK: Tap Gesture Recognizer functions
     func tap_recognizer_enable () {
         if !self.tapGesture.isEnabled {
             self.tapGesture.isEnabled = true
@@ -193,7 +194,7 @@ extension ViewController {
             self.tapGesture.isEnabled = false
         }
     }
-    //MARK: Tap to scan label funtions
+    // MARK: Tap to scan label funtions
     func ui_message_init () {
         self.continueLabel.text = "TAP TO SCAN NEXT QR CODE"
         self.view.bringSubview(toFront: self.continueLabel)
@@ -211,7 +212,7 @@ extension ViewController {
             self.continueLabel.isHidden = true
         }
     }
-    //MARK: Label status funtions
+    // MARK: Label status funtions
     func ui_status_init () {
         self.view.bringSubview(toFront: self.messageLabel)
         self.ui_status_scan()
@@ -265,7 +266,7 @@ extension ViewController {
         self.isFinalStatus = false
     }
     
-    //MARK: Loading Weel functions
+    // MARK: Loading Weel functions
     func ui_loadingWheel_init () {
         self.view.bringSubview(toFront: self.loadingWheel)
         self.loadingWheel.isHidden = true
@@ -291,7 +292,7 @@ extension ViewController {
         }
     }
     
-    //MARK: QR-code Frame functions
+    // MARK: QR-code Frame functions
     func ui_QRFrame_init () {
         self.qrFrameView = UIView()
         self.qrFrameView!.layer.borderColor = Colors.ticksetGreen().cgColor
@@ -308,6 +309,5 @@ extension ViewController {
     func ui_QRFrame_hide () {
         qrFrameView?.frame = CGRect.zero
     }
-    
     
 }
