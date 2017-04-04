@@ -141,6 +141,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A4CE0AE1E5D7EBA0013E771 /* Build configuration list for PBXNativeTarget "Tickset" */;
 			buildPhases = (
+				18DD9A951E93DD3F00958FFB /* SwiftLint Run Script */,
 				1A4CE0821E5D7EB90013E771 /* Sources */,
 				1A4CE0831E5D7EB90013E771 /* Frameworks */,
 				1A4CE0841E5D7EB90013E771 /* Resources */,
@@ -265,6 +266,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18DD9A951E93DD3F00958FFB /* SwiftLint Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$USER\" != \"xcodeserver\" ]; then\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1A4CE0821E5D7EB90013E771 /* Sources */ = {
