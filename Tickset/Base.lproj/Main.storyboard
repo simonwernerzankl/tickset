@@ -47,7 +47,7 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="j32-bj-Mxm">
-                                <rect key="frame" x="169" y="588" width="37" height="37"/>
+                                <rect key="frame" x="169.5" y="588" width="37" height="37"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUn-Ac-SJV">
                                 <rect key="frame" x="333" y="20" width="22" height="22"/>
@@ -101,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--Info View Controller-->
+        <!--Information-->
         <scene sceneID="xLU-vL-9KH">
             <objects>
                 <viewController id="i2y-5j-Eso" customClass="InfoViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,11 +110,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wxz-JO-nOP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0zC-GF-zzw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKt-fC-NsD">
-                                <rect key="frame" x="20" y="84" width="335" height="563"/>
+                                <rect key="frame" x="16" y="8" width="343" height="579"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -123,28 +123,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lKt-fC-NsD" secondAttribute="trailing" constant="20" id="5cg-eg-n5C"/>
-                            <constraint firstItem="lKt-fC-NsD" firstAttribute="top" secondItem="eet-ob-roD" secondAttribute="bottom" constant="20" id="MHQ-LU-xgw"/>
-                            <constraint firstItem="wxz-JO-nOP" firstAttribute="top" secondItem="lKt-fC-NsD" secondAttribute="bottom" constant="20" id="Uox-t6-iBE"/>
-                            <constraint firstItem="lKt-fC-NsD" firstAttribute="leading" secondItem="0zC-GF-zzw" secondAttribute="leading" constant="20" id="VKh-X9-c6f"/>
+                            <constraint firstAttribute="trailing" secondItem="lKt-fC-NsD" secondAttribute="trailing" constant="16" id="5cg-eg-n5C"/>
+                            <constraint firstItem="wxz-JO-nOP" firstAttribute="top" secondItem="lKt-fC-NsD" secondAttribute="bottom" constant="16" id="Dl4-pr-hox"/>
+                            <constraint firstItem="lKt-fC-NsD" firstAttribute="leading" secondItem="0zC-GF-zzw" secondAttribute="leading" constant="16" id="VKh-X9-c6f"/>
+                            <constraint firstItem="lKt-fC-NsD" firstAttribute="top" secondItem="eet-ob-roD" secondAttribute="bottom" constant="8" id="rdV-aS-84j"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="9TW-mh-8EQ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Zd2-Dt-Bb8"/>
+                    <navigationItem key="navigationItem" title="Information" id="9TW-mh-8EQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Zd2-Dt-Bb8">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="i2y-5j-Eso" id="X6c-yW-9UF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHj-te-DJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1737" y="139"/>
+            <point key="canvasLocation" x="1736.8" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qZj-Eh-Hta">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KOm-9u-xrA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZQD-3u-W8X">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZQD-3u-W8X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
