@@ -14,7 +14,7 @@ class MiddleWare {
     
     static func isValidURL(for urlString: String) -> Bool {
         
-        print(urlString)
+        NSLog(urlString)
         
         var successful = false
         if let url = URL(string: urlString) {

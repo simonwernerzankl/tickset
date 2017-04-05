@@ -136,7 +136,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         if MiddleWare.isValidURL(for: metadata) {
             
-            print(">> URL {\(metadata)} is valid")
+            NSLog(">> URL {\(metadata)} is valid")
             
             let url = URL(string: metadata)!
             MiddleWare.getStatus(with: url, completion: { (status, error) in
@@ -153,7 +153,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                 if error == nil {
                                     
                                     DispatchQueue.main.async {
-                                        print(">> TICKET POSTED!")
+                                        NSLog(">> TICKET POSTED!")
                                         self.showValidStatus()
                                     }
                                     
@@ -162,7 +162,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                     DispatchQueue.main.async {
                                         
                                         if let error = error {
-                                            print(">> Error POST the ticket: {\(error)}\nTry again...")
+                                            NSLog(">> Error POST the ticket: {\(error)}\nTry again...")
                                         }
                                         self.showErrorStatus()
                                     }
@@ -174,7 +174,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                             DispatchQueue.main.async {
                                 
                                 if let error = error {
-                                    print(">> Error getting the Cookie: \n{\(cookie ?? "")}\n{\(error)}\nTry again...")
+                                    NSLog(">> Error getting the Cookie: \n{\(cookie ?? "")}\n{\(error)}\nTry again...")
                                 }
                                 self.showErrorStatus()
                             }
@@ -184,13 +184,13 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 case 202:
                     // Ticket used
                     DispatchQueue.main.async {
-                        print(">> Response status {\(status)}. Ticket has been used.")
+                        NSLog(">> Response status {\(status)}. Ticket has been used.")
                         self.showUsedStatus()
                     }
                     
                 default:
                     DispatchQueue.main.async {
-                        print(">> Response status {\(status)} is not 200.")
+                        NSLog(">> Response status {\(status)} is not 200.")
                         self.showInvalidStatus()
                     }
                 }
@@ -198,7 +198,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             
         } else {
             
-            print(">> URL {\(metadata)} is NOT valid")
+            NSLog(">> URL {\(metadata)} is NOT valid")
             showInvalidStatus()
         }
     }
@@ -236,7 +236,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             startCapture()
             
         } catch {
-            print("Error: AVCaptureDeviceInput")
+            NSLog("Error: AVCaptureDeviceInput")
         }
     }
     
