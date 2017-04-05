@@ -15,7 +15,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    var qrFrameView: UIView?
     var currentMetadata: String = ""
     var isStoped: Bool = false
     var isFinalStatus: Bool = false {
@@ -31,6 +30,14 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     @IBOutlet weak var cameraContainerView: UIView!
+    @IBOutlet weak var qrFrameView: UIView! {
+        didSet {
+            qrFrameView.backgroundColor = .clear
+            qrFrameView.layer.borderColor = UIColor.green.cgColor
+            qrFrameView.layer.borderWidth = 2
+            qrFrameView.layer.cornerRadius = 10
+        }
+    }
     @IBOutlet weak var continueLabel: UILabel! {
         didSet {
             continueLabel.text = "TAP TO SCAN NEXT QR CODE"
@@ -45,7 +52,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var loadingWheel: UIActivityIndicatorView! {
         didSet { loadingWheel.isHidden = true }
     }
-    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var tapGesture: UITapGestureRecognizer!
     
     // MARK: - View Lifecycle
     
@@ -53,7 +60,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewDidLoad()
         
         setupCamera()
-        setupQRFrame()
     }
     
     // MARK: - Actions
@@ -84,9 +90,10 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 isStoped = true
                 stopCapture()
                 
-                let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
+                if let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as? AVMetadataMachineReadableCodeObject {
                 
-                addQRFrame(to: barCodeObject.bounds)
+                    showQRFrame(with: barCodeObject.bounds)
+                }
                 
                 validateQR(with: metadataObj.stringValue)
             }
@@ -213,7 +220,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // MARK: - Graphical Helpers
 
-    // MARK: Tap Gesture Recognizer functions
+    // MARK: Tap Gesture Recognizer
     
     func enableTapRecognizer() {
         
@@ -229,7 +236,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    // MARK: Tap to scan label funtions
+    // MARK: Tap to scan label
     
     func showMessage() {
         
@@ -245,7 +252,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    // MARK: Label status funtions
+    // MARK: Label status
     
     func showValidStatus() {
         
@@ -301,7 +308,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         isFinalStatus = false
     }
     
-    // MARK: Loading Weel functions
+    // MARK: Loading Weel
     
     func startLoadingWheel() {
         
@@ -326,28 +333,17 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    // MARK: QR-code Frame functions
+    // MARK: QR-code Frame
     
-    func setupQRFrame() {
+    func showQRFrame(with bounds: CGRect) {
         
-        guard self.qrFrameView == nil else {
-            return
-        }
-        
-        let qrFrameView = UIView()
-        qrFrameView.layer.borderColor = UIColor.green.cgColor
-        qrFrameView.layer.borderWidth = 2
-        qrFrameView.layer.cornerRadius = 10
-        view.addSubview(qrFrameView)
-        view.bringSubview(toFront: qrFrameView)
-        self.qrFrameView = qrFrameView
-    }
-    
-    func addQRFrame(to bounds: CGRect) {
-        qrFrameView?.frame = bounds
+        qrFrameView.frame = bounds
+        qrFrameView.isHidden = false
     }
     
     func hideQRFrame() {
+        
+        qrFrameView.isHidden = true
         qrFrameView?.frame = CGRect.zero
     }
     
