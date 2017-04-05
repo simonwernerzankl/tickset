@@ -40,12 +40,14 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     @IBOutlet weak var continueLabel: UILabel! {
         didSet {
+            continueLabel.backgroundColor = .darkCyan
             continueLabel.text = "TAP TO SCAN NEXT QR CODE"
             hideMessage()
         }
     }
     @IBOutlet weak var messageLabel: UILabel! {
         didSet {
+            messageLabel.backgroundColor = .darkCyan
             showScanStatus()
         }
     }
