@@ -296,7 +296,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         stopLoadingWheel()
         messageLabel.text = "SCAN QR CODE ON TICKET"
-        messageLabel.backgroundColor = .gray
+        messageLabel.backgroundColor = .darkCyan
         messageLabel.textColor = .white
         isFinalStatus = false
     }
@@ -305,7 +305,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         startLoadingWheel()
         messageLabel.text = ""
-        messageLabel.backgroundColor = .gray
+        messageLabel.backgroundColor = .darkCyan
         messageLabel.textColor = .white
         isFinalStatus = false
     }
