@@ -31,12 +31,34 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     @IBOutlet weak var cameraContainerView: UIView!
-    @IBOutlet weak var continueLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var loadingWheel: UIActivityIndicatorView!
+    @IBOutlet weak var continueLabel: UILabel! {
+        didSet {
+            continueLabel.text = "TAP TO SCAN NEXT QR CODE"
+            hideMessage()
+        }
+    }
+    @IBOutlet weak var messageLabel: UILabel! {
+        didSet {
+            showScanStatus()
+        }
+    }
+    @IBOutlet weak var loadingWheel: UIActivityIndicatorView! {
+        didSet { loadingWheel.isHidden = true }
+    }
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     
-    @IBAction func tapGestureAction(_ sender: Any) {
+    // MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupCamera()
+        setupQRFrame()
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
         
         if isStoped && isFinalStatus {
             
@@ -45,18 +67,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             hideQRFrame()
             startCapture()
         }
-    }
-    
-    // MARK: - View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupCamera()
-        setupStatus()
-        setupLoadingWheel()
-        setupQRFrame()
-        setupMessage()
     }
     
     // MARK: - QR and Camera Logic
@@ -221,13 +231,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // MARK: Tap to scan label funtions
     
-    func setupMessage() {
-        
-        continueLabel.text = "TAP TO SCAN NEXT QR CODE"
-        view.bringSubview(toFront: continueLabel)
-        hideMessage()
-    }
-    
     func showMessage() {
         
         if continueLabel.isHidden {
@@ -243,12 +246,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     // MARK: Label status funtions
-    
-    func setupStatus() {
-        
-        view.bringSubview(toFront: messageLabel)
-        showScanStatus()
-    }
     
     func showValidStatus() {
         
@@ -305,12 +302,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     // MARK: Loading Weel functions
-    
-    func setupLoadingWheel() {
-        
-        view.bringSubview(toFront: loadingWheel)
-        loadingWheel.isHidden = true
-    }
     
     func startLoadingWheel() {
         
