@@ -35,7 +35,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             qrFrameView.backgroundColor = .clear
             qrFrameView.layer.borderColor = UIColor.green.cgColor
             qrFrameView.layer.borderWidth = 2
-            qrFrameView.layer.cornerRadius = 10
         }
     }
     @IBOutlet weak var continueLabel: UILabel! {
@@ -341,12 +340,21 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         qrFrameView.frame = bounds
         qrFrameView.isHidden = false
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+            self.qrFrameView.alpha = 1
+        }, completion: nil)
     }
     
     func hideQRFrame() {
         
-        qrFrameView.isHidden = true
-        qrFrameView?.frame = CGRect.zero
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+            self.qrFrameView.alpha = 0
+        }) { (completed) in
+            
+            if completed {
+                self.qrFrameView.isHidden = true
+            }
+        }
     }
     
 }
