@@ -61,12 +61,35 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewDidLoad()
         
         setupCamera()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        startCapture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         showInfoViewIfNeeded()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        stopCapture()
+    }
+    
+    func applicationDidEnterBackground(_ sender: Any) {
+        stopCapture()
+    }
+    
+    func applicationDidBecomeActive(_ sender: Any) {
+        startCapture()
     }
     
     // MARK: - Actions
@@ -218,11 +241,21 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func startCapture(with delay: Bool = false) {
-        captureSession?.startRunning()
+        
+        guard isStoped == false, let captureSession = self.captureSession, captureSession.isRunning == false else {
+            return
+        }
+        
+        captureSession.startRunning()
     }
     
     func stopCapture() {
-        captureSession?.stopRunning()
+        
+        guard let captureSession = self.captureSession, captureSession.isRunning == true else {
+            return
+        }
+        
+        captureSession.stopRunning()
     }
     
     // MARK: - Graphical Helpers
