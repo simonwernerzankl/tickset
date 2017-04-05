@@ -12,12 +12,12 @@ class MiddleWare {
     
     // MARK: - Helpers
     
-    static func isValidURL(urlString: String) -> Bool {
+    static func isValidURL(for urlString: String) -> Bool {
         
         print(urlString)
         
         var successful = false
-        if let url = NSURL(string: urlString) {
+        if let url = URL(string: urlString) {
             
             successful = UIApplication.shared.canOpenURL(url as URL)
             if successful && urlString.contains("tickset.com/consume_ticket/") {
@@ -34,7 +34,7 @@ class MiddleWare {
     
     // MARK: - Status
     
-    static func getStatus(url: URL, completion: @escaping (_ status: Int, _ error: Error?) -> Void) {
+    static func getStatus(with url: URL, completion: @escaping (_ status: Int, _ error: Error?) -> Void) {
         
         var finalStatus: Int = -1001
         var finalError: Error? = nil
@@ -67,7 +67,7 @@ class MiddleWare {
     
     // MARK: - Cookies
     
-    static func getCookie(url: URL, completion: @escaping (_ cookie: String?, _ error: Error?) -> Void) {
+    static func getCookie(with url: URL, completion: @escaping (_ cookie: String?, _ error: Error?) -> Void) {
         
         var finalError: Error? = nil
         var finalCookie: String? = nil
@@ -80,7 +80,7 @@ class MiddleWare {
             if error == nil, let httpResponse = response as? HTTPURLResponse {
                 
                 let rawCookie = httpResponse.allHeaderFields["Set-Cookie"] as? String
-                finalCookie = self.prepareCookie(rawCookie: rawCookie)
+                finalCookie = self.prepareCookie(with: rawCookie)
                 
             } else {
                 finalError = error
@@ -90,7 +90,7 @@ class MiddleWare {
         getTask.resume()
     }
     
-    static func prepareCookie(rawCookie: String?) -> String? {
+    static func prepareCookie(with rawCookie: String?) -> String? {
         
         var finalCookie: String?
         if let rawCookie = rawCookie {
@@ -101,7 +101,7 @@ class MiddleWare {
     
     // MARK: - Tickets
     
-    static func postTicket(url: URL, cookie: String, completion: @escaping (_ error: Error?) -> Void) {
+    static func postTicket(with url: URL, cookie: String, completion: @escaping (_ error: Error?) -> Void) {
         
         var postRequest = URLRequest(url: url)
         postRequest.httpMethod = "POST"

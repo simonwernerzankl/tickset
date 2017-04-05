@@ -21,6 +21,10 @@ class InfoViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
+        
+        UserDefaults.standard.set(true, forKey: "InfoViewShown")
+        UserDefaults.standard.synchronize()
+        
         dismiss(animated: true, completion: nil)
     }
 
