@@ -63,6 +63,12 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         setupCamera()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        showInfoViewIfNeeded()
+    }
+    
     // MARK: - Actions
     
     @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
@@ -355,6 +361,18 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 self.qrFrameView.isHidden = true
             }
         }
+    }
+    
+    // MARK: - Info View
+    
+    func showInfoViewIfNeeded() {
+        
+        guard UserDefaults.standard.bool(forKey: "InfoViewShown") == false, let storyboard = self.storyboard else {
+            return
+        }
+        
+        let infoNavController = storyboard.instantiateViewController(withIdentifier: "InfoNavigationController")
+        present(infoNavController, animated: true, completion: nil)
     }
     
 }

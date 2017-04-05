@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -109,7 +109,7 @@
         <!--Information-->
         <scene sceneID="xLU-vL-9KH">
             <objects>
-                <viewController id="i2y-5j-Eso" customClass="InfoViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="i2y-5j-Eso" customClass="InfoViewController" customModule="Tickset" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eet-ob-roD"/>
                         <viewControllerLayoutGuide type="bottom" id="wxz-JO-nOP"/>
@@ -157,7 +157,7 @@ Point camera at the QR code and the screen will show if ticket is:
         <!--Navigation Controller-->
         <scene sceneID="qZj-Eh-Hta">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KOm-9u-xrA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InfoNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KOm-9u-xrA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ZQD-3u-W8X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
