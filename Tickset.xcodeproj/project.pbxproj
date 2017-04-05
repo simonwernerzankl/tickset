@@ -204,17 +204,20 @@
 					1A4CE0851E5D7EB90013E771 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 8254BYD82X;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					1A4CE0991E5D7EBA0013E771 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = YRTWAFKJ72;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A4CE0851E5D7EB90013E771;
 					};
 					1A4CE0A41E5D7EBA0013E771 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = YRTWAFKJ72;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A4CE0851E5D7EB90013E771;
 					};

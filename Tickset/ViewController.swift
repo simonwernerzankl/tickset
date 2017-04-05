@@ -78,30 +78,30 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 
                 addQRFrame(to: barCodeObject.bounds)
                 
-                validationQR(metadata: metadataObj.stringValue)
+                validateQR(with: metadataObj.stringValue)
             }
         }
     }
     
-    func validationQR (metadata: String) {
+    func validateQR(with metadata: String) {
         
         showCheckingStatus()
         
-        if MiddleWare.isValidURL(urlString: metadata) {
+        if MiddleWare.isValidURL(for: metadata) {
             
             print(">> URL {\(metadata)} is valid")
             
             let url = URL(string: metadata)!
-            MiddleWare.getStatus(url: url, completion: { (status, error) in
+            MiddleWare.getStatus(with: url, completion: { (status, error) in
                 
                 switch status {
                 case 200 :
                     // Keep checking
-                    MiddleWare.getCookie(url: url, completion: { (cookie, error) in
+                    MiddleWare.getCookie(with: url, completion: { (cookie, error) in
                         
                         if error == nil && cookie != nil {
                             
-                            MiddleWare.postTicket(url: url, cookie: cookie!, completion: { (error) in
+                            MiddleWare.postTicket(with: url, cookie: cookie!, completion: { (error) in
                                 
                                 if error == nil {
                                     
@@ -193,7 +193,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func startCapture (withDelay: Bool=false) {
+    func startCapture(with delay: Bool = false) {
         captureSession?.startRunning()
     }
     
